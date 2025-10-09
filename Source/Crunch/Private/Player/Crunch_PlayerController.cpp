@@ -2,4 +2,27 @@
 
 
 #include "Player/Crunch_PlayerController.h"
+#include "Crunch_PlayerCharacter.h"
+
+void ACrunch_PlayerController::OnPossess(APawn* InPawn)
+{
+	Super::OnPossess(InPawn);
+
+	CachedPlayerCharacter = Cast<ACrunch_PlayerCharacter>(InPawn);
+	if(CachedPlayerCharacter)
+	{
+		CachedPlayerCharacter->ServerSideInit();
+	}
+}
+
+void ACrunch_PlayerController::AcknowledgePossession(class APawn* InPawn)
+{
+	Super::AcknowledgePossession(InPawn);
+
+	CachedPlayerCharacter = Cast<ACrunch_PlayerCharacter>(InPawn);
+	if(CachedPlayerCharacter)
+	{
+		CachedPlayerCharacter->ClientSideInit();
+	}
+}
 

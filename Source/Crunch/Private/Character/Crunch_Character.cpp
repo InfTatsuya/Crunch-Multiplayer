@@ -3,6 +3,9 @@
 
 #include "Character/Crunch_Character.h"
 
+#include "GAS/Crunch_AbilitySystemComponent.h"
+#include "GAS/Crunch_AttributeSet.h"
+
 // Sets default values
 ACrunch_Character::ACrunch_Character()
 {
@@ -10,6 +13,20 @@ ACrunch_Character::ACrunch_Character()
 	PrimaryActorTick.bCanEverTick = true;
 	
 	GetMesh()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+
+	CrunchAbilitySystemComp = CreateDefaultSubobject<UCrunch_AbilitySystemComponent>(TEXT("Ability System Component"));
+	CrunchAttributeSet = CreateDefaultSubobject<UCrunch_AttributeSet>(TEXT("Attribute Set"));
+}
+
+void ACrunch_Character::ServerSideInit()
+{
+	CrunchAbilitySystemComp->InitAbilityActorInfo(this, this);
+	CrunchAbilitySystemComp->ApplyInitialGameplayEffects();
+}
+
+void ACrunch_Character::ClientSideInit()
+{
+	CrunchAbilitySystemComp->InitAbilityActorInfo(this, this);
 }
 
 // Called when the game starts or when spawned
@@ -31,5 +48,10 @@ void ACrunch_Character::SetupPlayerInputComponent(UInputComponent* PlayerInputCo
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
+}
+
+UAbilitySystemComponent* ACrunch_Character::GetAbilitySystemComponent() const
+{
+	return CrunchAbilitySystemComp;
 }
 

@@ -41,8 +41,20 @@ private:
 	TObjectPtr<UInputAction> LookInputAction;
 
 	UPROPERTY(EditDefaultsOnly, Category = "Input")
+	TObjectPtr<UInputAction> MoveInputAction;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Input")
 	TObjectPtr<UInputMappingContext> GameplayInputMappingContext;
 
+	UPROPERTY(EditDefaultsOnly, Category = "Move Config")
+	float MoveSpeed = 1.f;
+
 	void HandlingLookInput(const FInputActionValue& InputValue);
+	void HandlingMoveInput(const FInputActionValue& InputValue);
+
+	FVector GetLookRightVector() const;
+	FVector GetLookForwardVector() const;
+	FVector GetForwardMoveVector() const;
+	
 	
 };
