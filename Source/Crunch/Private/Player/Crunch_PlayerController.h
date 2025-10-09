@@ -6,6 +6,7 @@
 #include "GameFramework/PlayerController.h"
 #include "Crunch_PlayerController.generated.h"
 
+class UGameplayWidget;
 class ACrunch_PlayerCharacter;
 /**
  * 
@@ -27,7 +28,15 @@ protected:
 
 private:
 
+	void SpawnGameplayWidget();
+
 	UPROPERTY()
-	TObjectPtr<ACrunch_PlayerCharacter> CachedPlayerCharacter; 
+	TObjectPtr<ACrunch_PlayerCharacter> CachedPlayerCharacter;
+
+	UPROPERTY(EditDefaultsOnly, Category = "UI")
+	TSubclassOf<UGameplayWidget> GameplayWidgetClass;
+
+	UPROPERTY()
+	TObjectPtr<UGameplayWidget> GameplayWidget = nullptr;
 	
 };

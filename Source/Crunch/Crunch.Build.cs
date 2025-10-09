@@ -15,7 +15,10 @@ public class Crunch : ModuleRules
 			"EnhancedInput",
 			"GameplayAbilities",
 			"GameplayTasks",
-			"GameplayTags"
+			"GameplayTags",
+			"UMG",
+			"Slate",
+			"SlateCore"
 		});
 
 		// Uncomment if you are using Slate UI

@@ -3,6 +3,8 @@
 
 #include "Player/Crunch_PlayerController.h"
 #include "Crunch_PlayerCharacter.h"
+#include "Blueprint/UserWidget.h"
+#include "Widgets/GameplayWidget.h"
 
 void ACrunch_PlayerController::OnPossess(APawn* InPawn)
 {
@@ -23,6 +25,21 @@ void ACrunch_PlayerController::AcknowledgePossession(class APawn* InPawn)
 	if(CachedPlayerCharacter)
 	{
 		CachedPlayerCharacter->ClientSideInit();
+		SpawnGameplayWidget();
+	}
+}
+
+void ACrunch_PlayerController::SpawnGameplayWidget()
+{
+	if(!IsLocalPlayerController()) return;
+
+	if(GameplayWidgetClass->IsValidLowLevelFast())
+	{
+		GameplayWidget = CreateWidget<UGameplayWidget>(this, GameplayWidgetClass);
+		if(GameplayWidget)
+		{
+			GameplayWidget->AddToViewport();
+		}
 	}
 }
 
